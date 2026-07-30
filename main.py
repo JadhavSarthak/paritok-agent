@@ -1,22 +1,61 @@
 from agent.context_store import ContextStore
 from agent.tools.read_file import read_file
-store = ContextStore()
+from agent.tools.grep import grep
 
-store.add_message("user", "Fix the login bug.")
-store.add_message("tool", "Read auth.py")
-store.add_message("assistant", "Bug found in auth.py line 42.")
 
-print(store.get_history())
+def main():
+    # -----------------------------
+    # ContextStore Demo (Day 1)
+    # -----------------------------
+    store = ContextStore()
 
-print(f"\nMessages stored: {len(store)}")
+    store.add_message("user", "Fix the login bug.")
+    store.add_message("tool", "Read auth.py")
+    store.add_message("assistant", "Bug found in auth.py line 42.")
 
-store.clear()
+    print("=" * 50)
+    print("ContextStore Demo")
+    print("=" * 50)
 
-print("\nAfter clearing:")
-print(store.get_history())
+    print(store.get_history())
+    print(f"\nMessages stored: {len(store)}")
 
-print("\nReading README.md...\n")
+    store.clear()
 
-content = read_file("README.md")
+    print("\nAfter clearing:")
+    print(store.get_history())
 
-print(content[:500])
+    # -----------------------------
+    # read_file Demo (Day 1)
+    # -----------------------------
+    print("\n" + "=" * 50)
+    print("Read File Demo")
+    print("=" * 50)
+
+    content = read_file("README.md")
+    print(content[:500])
+
+    # -----------------------------
+    # grep Demo (Day 2)
+    # -----------------------------
+    print("\n" + "=" * 50)
+    print("Grep Demo")
+    print("=" * 50)
+
+    pattern = "ContextStore"
+
+    results = grep(".", pattern)
+
+    if not results:
+        print(f"No matches found for '{pattern}'")
+    else:
+        print(f"Found {len(results)} match(es):\n")
+
+        for result in results:
+            print(
+                f"{result['file']}:{result['line']} -> {result['text']}"
+            )
+
+
+if __name__ == "__main__":
+    main()
