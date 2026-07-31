@@ -1,7 +1,7 @@
 from agent.context_store import ContextStore
 from agent.tools.read_file import read_file
 from agent.tools.grep import grep
-
+from agent.tools.run_shell import run_shell
 
 def main():
     # -----------------------------
@@ -55,7 +55,23 @@ def main():
             print(
                 f"{result['file']}:{result['line']} -> {result['text']}"
             )
+        # -----------------------------
+    # Run Shell Demo (Day 3)
+    # -----------------------------
+    print("\n" + "=" * 50)
+    print("Run Shell Demo")
+    print("=" * 50)
 
+    result = run_shell("pwd")
 
+    print(f"Success     : {result['success']}")
+    print(f"Return Code : {result['returncode']}")
+
+    print("\nSTDOUT:")
+    print(result["stdout"])
+
+    if result["stderr"]:
+        print("\nSTDERR:")
+        print(result["stderr"])
 if __name__ == "__main__":
     main()
