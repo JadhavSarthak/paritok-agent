@@ -2,6 +2,7 @@ from agent.context_store import ContextStore
 from agent.tools.read_file import read_file
 from agent.tools.grep import grep
 from agent.tools.run_shell import run_shell
+from agent.loop import AgentLoop
 
 def main():
     # -----------------------------
@@ -73,5 +74,22 @@ def main():
     if result["stderr"]:
         print("\nSTDERR:")
         print(result["stderr"])
+    # -----------------------------
+    # Agent Loop Demo (Day 4)
+    # -----------------------------
+    print("\n" + "=" * 50)
+    print("Agent Loop Demo")
+    print("=" * 50)
+
+    agent = AgentLoop()
+
+    print("\nTask 1:")
+    print(agent.run("Read README.md")[:300])
+
+    print("\nTask 2:")
+    print(agent.run("Find ContextStore"))
+
+    print("\nTask 3:")
+    print(agent.run("Run pwd"))
 if __name__ == "__main__":
     main()
